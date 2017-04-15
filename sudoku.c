@@ -39,6 +39,7 @@ int main(int argc, char *argv[]) {
 
     int num[10]; // arrays of numbers from 0 to 9
     int numThreads = atoi(argv[2]);
+    int numErrors = 0;
 
     // Reads the grid, stores it in a matrix and prints it
 	int grid[9][9];
@@ -64,9 +65,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    int temp1;
-
-    // todas as linhas
+    // every line
     for(int x = 0; x < 9; x++) {
         hashset_t set = hashset_create();
 
@@ -74,7 +73,8 @@ int main(int argc, char *argv[]) {
             int value = grid[x][y];
 
             if (hashset_add(set, &num[value]) == 0) {
-                printf("Erro na linha %d\n", x+1);
+                printf("Erro na linha %d.\n", x+1);
+                numErrors++;
             }
 
         }
@@ -82,21 +82,53 @@ int main(int argc, char *argv[]) {
         hashset_destroy(set);
     }
 
-    // todas as linhas
+    // every column
     for(int x = 0; x < 9; x++) {
         hashset_t set = hashset_create();
 
         for(int y = 0; y < 9; y++) {
-            int value = grid[y][x];
+            int temp = grid[y][x];
 
-            if (hashset_add(set, &num[value]) == 0) {
-                printf("Erro na coluna %d\n", x+1);
+            if (hashset_add(set, &num[temp]) == 0) {
+                printf("Erro na coluna %d.\n", x+1);
+                numErrors++;
             }
 
         }
 
         hashset_destroy(set);
     }
+
+    // every region
+    // part 1 - find all regions
+    for(int x = 0; x < 9; x = x + 3) {
+        for(int y = 0; y < 9; y = y + 3) {
+            hashset_t set = hashset_create(); // for each region a new set is generated
+
+            // part 2 - loop through the content of each region
+            for(int z = 0; z < 3; z++) {
+                for(int w = 0; w < 3; w++) {
+                    int temp = grid[x+z][y+w];
+
+                    if (hashset_add(set, &num[temp]) == 0) {
+                        printf("Erro na região %d.\n", x+z+1);
+                        numErrors++;
+                    }
+                }
+            }
+
+            hashset_destroy(set);
+        }
+    }
+
+    for(int i = 0; i < 9; i++) {
+        for(int j = 0; j < 9; j++)
+            printf("%d ", grid[i][j]);
+        printf("\n");
+    }
+
+
+    printf("Erros encontrados: %d.\n", numErrors);
 
 	return 0;
 }
