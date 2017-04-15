@@ -39,7 +39,7 @@ int main(int argc, char *argv[]) {
 
     int num[10]; // arrays of numbers from 0 to 9
     int numThreads = atoi(argv[2]);
-    int numErrors = 0;
+    int numErros = 0;
 
     // Reads the grid, stores it in a matrix and prints it
 	int grid[9][9];
@@ -74,7 +74,7 @@ int main(int argc, char *argv[]) {
 
             if (hashset_add(set, &num[value]) == 0) {
                 printf("Erro na linha %d.\n", x+1);
-                numErrors++;
+                numErros++;
             }
 
         }
@@ -91,13 +91,15 @@ int main(int argc, char *argv[]) {
 
             if (hashset_add(set, &num[temp]) == 0) {
                 printf("Erro na coluna %d.\n", x+1);
-                numErrors++;
+                numErros++;
             }
 
         }
 
         hashset_destroy(set);
     }
+
+    int region_num = 0;
 
     // every region
     // part 1 - find all regions
@@ -106,29 +108,28 @@ int main(int argc, char *argv[]) {
             hashset_t set = hashset_create(); // for each region a new set is generated
 
             // part 2 - loop through the content of each region
+
             for(int z = 0; z < 3; z++) {
                 for(int w = 0; w < 3; w++) {
                     int temp = grid[x+z][y+w];
 
                     if (hashset_add(set, &num[temp]) == 0) {
-                        printf("Erro na região %d.\n", x+z+1);
-                        numErrors++;
+                        // finding out on which region we are
+
+                        printf("Erro na região %d.\n", region_num+1);
+                        numErros++;
                     }
+
                 }
             }
 
             hashset_destroy(set);
+
+            region_num++;
         }
     }
 
-    for(int i = 0; i < 9; i++) {
-        for(int j = 0; j < 9; j++)
-            printf("%d ", grid[i][j]);
-        printf("\n");
-    }
-
-
-    printf("Erros encontrados: %d.\n", numErrors);
+    printf("Erros encontrados: %d.\n", numErros);
 
 	return 0;
 }
