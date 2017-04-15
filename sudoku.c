@@ -65,7 +65,7 @@ int main(int argc, char *argv[]) {
         return 1;
     }
 
-    // every line
+    // every row
     for(int x = 0; x < 9; x++) {
         hashset_t set = hashset_create();
 
@@ -108,14 +108,11 @@ int main(int argc, char *argv[]) {
             hashset_t set = hashset_create(); // for each region a new set is generated
 
             // part 2 - loop through the content of each region
-
             for(int z = 0; z < 3; z++) {
                 for(int w = 0; w < 3; w++) {
                     int temp = grid[x+z][y+w];
 
                     if (hashset_add(set, &num[temp]) == 0) {
-                        // finding out on which region we are
-
                         printf("Erro na região %d.\n", region_num+1);
                         numErros++;
                     }
@@ -124,7 +121,6 @@ int main(int argc, char *argv[]) {
             }
 
             hashset_destroy(set);
-
             region_num++;
         }
     }
