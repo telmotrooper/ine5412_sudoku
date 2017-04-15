@@ -9,11 +9,14 @@ Description : Trabalho I de Sistemas Operacionais I
 */
 
 #include <stdio.h>
+#include <stdlib.h>
+#include "queue.h"
 
 // grid size = 9x9
 #define SIZE 9
 
-// Função que lê um grid do arquivo "filename" e o armazena em uma matriz
+
+// Reads a grid from a file and stores it in a matrix
 int load_grid(int grid[][SIZE], char *filename) {
 	FILE *input_file = fopen(filename, "r");
 
@@ -24,18 +27,21 @@ int load_grid(int grid[][SIZE], char *filename) {
 		fclose(input_file);
 		return 1;
 	}
-
 	return 0;
 }
 
 int main(int argc, char *argv[]) {
-
-	if(argc != 2) {
-		printf("Erro: informe o arquivo de entrada!\nUso: %s <arquivo de entrada>\n\n", argv[0]);
+	if(argc != 3) {
+		printf("Erro: parâmetros inválidos!\n"
+					   "Uso: %s <arquivo de entrada> <número de threads>\n\n", argv[0]);
 		return 1;
 	}
+    
+    printf("Peak: %d\n", queuePeek());
 
-	// Lê o grid do arquivo, armazena na matriz grid e imprime
+    int numThreads = atoi(argv[2]);
+
+    // Reads the grid, stores it in a matrix and prints it
 	int grid[9][9];
 	if(load_grid(grid, argv[1])) {
 		printf("Quebra-cabecas fornecido:\n");
@@ -46,6 +52,5 @@ int main(int argc, char *argv[]) {
 		}
 		printf("\n");
 	}
-
 	return 0;
 }
