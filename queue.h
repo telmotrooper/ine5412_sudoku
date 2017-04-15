@@ -6,7 +6,7 @@
 
 #include <stdbool.h>
 
-#define QUEUE_SIZE 243 // number of tasks required for Sudoku
+#define QUEUE_SIZE 243 // number of tasks required to find all errors in a Sudoku grid
 
 int queueIntArray[QUEUE_SIZE];
 int queueFront = 0;

@@ -15,7 +15,6 @@ Description : Trabalho I de Sistemas Operacionais I
 // grid size = 9x9
 #define SIZE 9
 
-
 // Reads a grid from a file and stores it in a matrix
 int load_grid(int grid[][SIZE], char *filename) {
 	FILE *input_file = fopen(filename, "r");
@@ -36,8 +35,6 @@ int main(int argc, char *argv[]) {
 					   "Uso: %s <arquivo de entrada> <número de threads>\n\n", argv[0]);
 		return 1;
 	}
-    
-    printf("Peak: %d\n", queuePeek());
 
     int numThreads = atoi(argv[2]);
 
