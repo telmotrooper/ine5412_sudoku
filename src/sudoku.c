@@ -36,7 +36,7 @@
 		//pthread_mutex_lock(&mutex);
 		if(grid[linha][coluna] == grid[linha][colunaAtual] && coluna != colunaAtual)
 		{
-			printf("THREAD %li: LINHA:  %i. POSSUI NÚMERO:%i ERRADO!\n", (long)arg, (linha + 1), grid[linha][colunaAtual]);
+			printf("THREAD %li: LINHA:  %i. POSSUI NÚMERO:%i ERRADO!\n", ((long)arg + 1), (linha + 1), grid[linha][colunaAtual]);
 			errosTotais++;
 		}
 
@@ -65,7 +65,7 @@
 		//pthread_mutex_lock(&mutex);
 		if(grid[linha][coluna] == grid[linhaAtual][coluna] && linha != linhaAtual)
 		{
-			printf("THREAD %li: COLUNA: %i. POSSUI NÚMERO:%i ERRADO!\n", (long)arg, (coluna + 1), grid[linhaAtual][coluna]);
+			printf("THREAD %li: COLUNA: %i. POSSUI NÚMERO:%i ERRADO!\n", ((long)arg + 1), (coluna + 1), grid[linhaAtual][coluna]);
 			errosTotais++;
 		}
 		
@@ -96,7 +96,7 @@
 		{
 			if((linha + regiaoLinha) != (linhaAtual + regiaoLinha) || (coluna + regiaoColuna) != (colunaAtual + regiaoColuna))
 			{
-				printf("THREAD %li: REGIÃO: %i. POSSUI NÚMERO:%i ERRADO!\n", (long)arg, (regiao + 1), grid[(linhaAtual + regiaoLinha)][(colunaAtual + regiaoColuna)]); 
+				printf("THREAD %li: REGIÃO: %i. POSSUI NÚMERO:%i ERRADO!\n", ((long)arg + 1), (regiao + 1), grid[(linhaAtual + regiaoLinha)][(colunaAtual + regiaoColuna)]); 
 				errosTotais++;
 			}
 		}
@@ -133,7 +133,7 @@
 									regiaoLinha = 0;
 									regiao = 0;
 									a++;
-									printf("TOTAL DE ERROS:%i\n", errosTotais);
+									printf("TOTAL DE ERROS: %i\n", errosTotais);
 									pthread_mutex_destroy(&mutex);
 								}
 							}
