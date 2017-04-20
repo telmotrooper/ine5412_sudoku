@@ -10,7 +10,6 @@
 	#include <stdio.h>
 	#include <stdlib.h>
 	#include <pthread.h>
-	#include <assert.h>
 
 	/* grid size = 9x9 */
 	#define SIZE 9
